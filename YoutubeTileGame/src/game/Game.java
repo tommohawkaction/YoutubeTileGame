@@ -3,19 +3,19 @@ package game;
 import java.awt.Graphics;
 
 import level.Level;
-import math.Vector2f;
 import screen.Screen;
 import window.MasterCanvas;
+import camera.Camera;
+import entity.Entity;
 import entity.EntityHandler;
 import entity.Player;
-import gfx.Texture;
 
 public class Game extends Screen {
 
-	private Level level = new Level();
+	public static Level level = new Level();
 
 	public Game() {
-		EntityHandler.addEntity(new Player(new Texture("Textures/player.png"),MasterCanvas.WIDTH/2-(40/2),MasterCanvas.HEIGHT/2-(50/2),40,50,new Vector2f()));
+		EntityHandler.addEntity(new Player(MasterCanvas.WIDTH/2-(40/2),MasterCanvas.HEIGHT/2-(40/2)));
 	}
 
 	@Override
@@ -26,9 +26,30 @@ public class Game extends Screen {
 
 	@Override
 	public void tick(double delta) {
-		//Camera.update();
+		Camera.setPosition(getPlayer());
+		
+		
 		level.tick(delta);
 		EntityHandler.tick(delta);
 	}
+	public static Player getPlayer(){
+		for(int i = 0;i < EntityHandler.getEntitys().size();i++){
+			Entity e = EntityHandler.getEntitys().get(i);
+			if(e instanceof Player){
+				Player p = (Player) e;
+				return p;
+			}
+		}
+		return null;
+	}
+
+	public static Level getLevel() {
+		return level;
+	}
+
+	public static void setLevel(Level level) {
+		Game.level = level;
+	}
+	
 
 }

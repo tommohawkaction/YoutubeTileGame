@@ -11,37 +11,41 @@ import entity.tiles.TileInfo;
 import entity.tiles.Tree;
 
 public class Level {
+	public static final int SCALE = 3;
+	public static final int SIZE = 50;
+	public static final int SEED = 255;
 
 	private MasterTile[][] tiles;
-	private static final int size = 50;
 	private int lengthX, lengthY;
-	private static final int scale = 3;
-	private Random r = new Random();
+	private Random r = new Random(SEED);
 
 	public Level() {
-		lengthX = (MasterCanvas.WIDTH / size) * scale;
-		lengthY = (MasterCanvas.HEIGHT / size) * scale;
+		lengthX = (MasterCanvas.WIDTH / SIZE) * SCALE;
+		lengthY = (MasterCanvas.HEIGHT / SIZE) * SCALE;
 
 		tiles = new MasterTile[lengthX][lengthY];
 
 		for (int x = 0; x < lengthX; x++) {
 			for (int y = 0; y < lengthY; y++) {
 				if (r.nextFloat() < 0.2f) {
-					tiles[x][y] = new MasterTile(new Grass(), new Tree(), new TileInfo(x*size, y*size, size));
+					tiles[x][y] = new MasterTile(new Grass(), new Tree(), new TileInfo(x*SIZE, y*SIZE, SIZE));
 				} else {
-					tiles[x][y] = new MasterTile(new Grass(), new TileInfo(x*size, y*size, size));
+					tiles[x][y] = new MasterTile(new Grass(), new TileInfo(x*SIZE, y*SIZE, SIZE));
 				}
 			}
 		}
 
 	}
+	public MasterTile getTile(int x,int y){
+		return tiles[x][y];
+	}
 
 	public void render(Graphics g) {
-		int cameraX = Camera.getX() / size;
-		int cameraY = Camera.getY() / size;
+		int cameraX = Camera.getX() / SIZE;
+		int cameraY = Camera.getY() / SIZE;
 
-		int cameraWidth = MasterCanvas.WIDTH / size + 3;
-		int cameraHeight = MasterCanvas.HEIGHT / size + 3;
+		int cameraWidth = MasterCanvas.WIDTH / SIZE + 3;
+		int cameraHeight = MasterCanvas.HEIGHT / SIZE + 3;
 
 		if (cameraX < 0)
 			cameraX = 0;
@@ -61,11 +65,11 @@ public class Level {
 	}
 
 	public void tick(double delta) {
-		int cameraX = Camera.getX() / size;
-		int cameraY = Camera.getY() / size;
+		int cameraX = Camera.getX() / SIZE;
+		int cameraY = Camera.getY() / SIZE;
 
-		int cameraWidth = MasterCanvas.WIDTH / size + 3;
-		int cameraHeight = MasterCanvas.HEIGHT / size + 3;
+		int cameraWidth = MasterCanvas.WIDTH / SIZE + 3;
+		int cameraHeight = MasterCanvas.HEIGHT / SIZE + 3;
 
 		if (cameraX < 0)
 			cameraX = 0;
@@ -83,5 +87,38 @@ public class Level {
 			}
 		}
 	}
+
+	public MasterTile[][] getTiles() {
+		return tiles;
+	}
+
+	public void setTiles(MasterTile[][] tiles) {
+		this.tiles = tiles;
+	}
+
+	public int getLengthX() {
+		return lengthX;
+	}
+
+	public void setLengthX(int lengthX) {
+		this.lengthX = lengthX;
+	}
+
+	public int getLengthY() {
+		return lengthY;
+	}
+
+	public void setLengthY(int lengthY) {
+		this.lengthY = lengthY;
+	}
+
+	public Random getR() {
+		return r;
+	}
+
+	public void setR(Random r) {
+		this.r = r;
+	}
+	
 
 }

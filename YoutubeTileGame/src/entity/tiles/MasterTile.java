@@ -28,6 +28,25 @@ public class MasterTile {
 		if(bottom != null)bottom.tick(delta);
 		if(top != null)top.tick(delta);
 	}
+	public Tile getBottom() {
+		return bottom;
+	}
+	public void setBottom(Tile bottom) {
+		this.bottom = bottom;
+	}
+	public Tile getTop() {
+		return top;
+	}
+	public void setTop(Tile top) {
+		this.top = top;
+	}
+	public TileInfo getTileInfo() {
+		return tileInfo;
+	}
+	public void setTileInfo(TileInfo tileInfo) {
+		this.tileInfo = tileInfo;
+	}
+	
 	
 
 }
